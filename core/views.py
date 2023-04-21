@@ -1,6 +1,11 @@
 from django.contrib.auth import get_user_model, logout
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView, CreateAPIView, GenericAPIView
+from rest_framework.generics import (
+    ListCreateAPIView,
+    RetrieveDestroyAPIView,
+    CreateAPIView,
+    GenericAPIView,
+)
 from rest_framework.response import Response
 
 from core.serializers import UserSerializer, UserLoginSerializer

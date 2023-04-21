@@ -1,6 +1,11 @@
 from django.urls import path
 
-from core.views import ListCreateUserView, RetrieveDestroyUserView, UserLogin, UserLogout
+from core.views import (
+    ListCreateUserView,
+    RetrieveDestroyUserView,
+    UserLogin,
+    UserLogout,
+)
 
 urlpatterns = [
     path("", ListCreateUserView.as_view()),

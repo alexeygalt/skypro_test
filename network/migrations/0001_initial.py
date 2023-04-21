@@ -8,88 +8,205 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Factory',
+            name="Factory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('created', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("created", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Завод',
-                'verbose_name_plural': 'Заводы',
+                "verbose_name": "Завод",
+                "verbose_name_plural": "Заводы",
             },
         ),
         migrations.CreateModel(
-            name='IndiPred',
+            name="IndiPred",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('indebtedness', models.DecimalField(decimal_places=2, default=0.0, max_digits=25)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('factory', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='individuates', to='network.factory')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                (
+                    "indebtedness",
+                    models.DecimalField(decimal_places=2, default=0.0, max_digits=25),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "factory",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="individuates",
+                        to="network.factory",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Индивидуальный предприниматель',
-                'verbose_name_plural': 'Индивидуальный предприниматели',
+                "verbose_name": "Индивидуальный предприниматель",
+                "verbose_name_plural": "Индивидуальный предприниматели",
             },
         ),
         migrations.CreateModel(
-            name='RetailsNet',
+            name="RetailsNet",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('indebtedness', models.DecimalField(decimal_places=2, default=0.0, max_digits=25)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('factory', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='retailers', to='network.factory')),
-                ('indi_pred', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='retailers', to='network.indipred')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                (
+                    "indebtedness",
+                    models.DecimalField(decimal_places=2, default=0.0, max_digits=25),
+                ),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "factory",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="retailers",
+                        to="network.factory",
+                    ),
+                ),
+                (
+                    "indi_pred",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="retailers",
+                        to="network.indipred",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Розничная сеть',
-                'verbose_name_plural': 'Розничные сети',
+                "verbose_name": "Розничная сеть",
+                "verbose_name_plural": "Розничные сети",
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50)),
-                ('model', models.CharField(max_length=100)),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('factory', models.ManyToManyField(blank=True, related_name='products', to='network.factory')),
-                ('indi', models.ManyToManyField(blank=True, related_name='products', to='network.indipred')),
-                ('retails', models.ManyToManyField(blank=True, related_name='products', to='network.retailsnet')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50)),
+                ("model", models.CharField(max_length=100)),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                (
+                    "factory",
+                    models.ManyToManyField(
+                        blank=True, related_name="products", to="network.factory"
+                    ),
+                ),
+                (
+                    "indi",
+                    models.ManyToManyField(
+                        blank=True, related_name="products", to="network.indipred"
+                    ),
+                ),
+                (
+                    "retails",
+                    models.ManyToManyField(
+                        blank=True, related_name="products", to="network.retailsnet"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Продукт',
-                'verbose_name_plural': 'Продукты',
+                "verbose_name": "Продукт",
+                "verbose_name_plural": "Продукты",
             },
         ),
         migrations.AddField(
-            model_name='indipred',
-            name='retails_net',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='individuates', to='network.retailsnet'),
+            model_name="indipred",
+            name="retails_net",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="individuates",
+                to="network.retailsnet",
+            ),
         ),
         migrations.CreateModel(
-            name='Contact',
+            name="Contact",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(max_length=254)),
-                ('country', models.CharField(max_length=50)),
-                ('city', models.CharField(max_length=50)),
-                ('street', models.CharField(max_length=50)),
-                ('house_number', models.SmallIntegerField()),
-                ('factory', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='network.factory')),
-                ('indi', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='network.indipred')),
-                ('retails', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='network.retailsnet')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254)),
+                ("country", models.CharField(max_length=50)),
+                ("city", models.CharField(max_length=50)),
+                ("street", models.CharField(max_length=50)),
+                ("house_number", models.SmallIntegerField()),
+                (
+                    "factory",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="network.factory",
+                    ),
+                ),
+                (
+                    "indi",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="network.indipred",
+                    ),
+                ),
+                (
+                    "retails",
+                    models.OneToOneField(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="network.retailsnet",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Контакт',
-                'verbose_name_plural': 'Контакты',
+                "verbose_name": "Контакт",
+                "verbose_name_plural": "Контакты",
             },
         ),
     ]

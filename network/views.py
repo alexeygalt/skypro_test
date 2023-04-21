@@ -14,7 +14,10 @@ class FactoryViews(viewsets.ModelViewSet):
     permission_classes = [IsActive]
 
     def update(self, request, *args, **kwargs):
-        if request.data.get("indebtedness") and self.request.stream.method in ("PUT", "PATCH"):
+        if request.data.get("indebtedness") and self.request.stream.method in (
+            "PUT",
+            "PATCH",
+        ):
             raise ValidationError({"error": "Нельзя менять задолжность"})
 
         return super().update(request, *args, **kwargs)

@@ -30,14 +30,20 @@ class VendorAdmin(admin.ModelAdmin):
         elif hasattr(obj, "indi_pred") and obj.indi_pred:
             ct = obj.indi_pred
 
-        url = reverse(f'admin:{ct._meta.app_label}_{ct._meta.model_name}_change', args=(ct.id,))
+        url = reverse(
+            f"admin:{ct._meta.app_label}_{ct._meta.model_name}_change", args=(ct.id,)
+        )
         return mark_safe(f'<a href="%s">%s</a>' % (url, ct.title))
 
     @admin.action(description="Удаление задолжности")
     def debt_deletion(self, request, queryset):
         updates = queryset.update(indebtedness=0.00)
-        self.message_user(request, ngettext("%d задолжность удалена",
-                                            "%d задолности удалены", updates) % updates, messages.SUCCESS)
+        self.message_user(
+            request,
+            ngettext("%d задолжность удалена", "%d задолности удалены", updates)
+            % updates,
+            messages.SUCCESS,
+        )
 
 
 admin.site.register(models.Product)

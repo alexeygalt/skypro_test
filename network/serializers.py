@@ -18,7 +18,9 @@ class ContactSerializer(serializers.ModelSerializer):
         links_vendor = (link_factory, link_retails, link_indi)
 
         if sum(map(lambda x: x is not None, links_vendor)) != 1:
-            assert ValidationError({"error": "Адрес может быть только у одного поставщика"})
+            assert ValidationError(
+                {"error": "Адрес может быть только у одного поставщика"}
+            )
 
         return attrs
 
@@ -88,9 +90,11 @@ class RetailSerializer(FactorySerializer):
 
             Contact.objects.create(**contact, **data)
 
-            products = Product.objects.filter(factory=validated_data.get("factory"),
-                                              indi=validated_data.get("indi_pred"),
-                                              retails=validated_data.get("retails"))
+            products = Product.objects.filter(
+                factory=validated_data.get("factory"),
+                indi=validated_data.get("indi_pred"),
+                retails=validated_data.get("retails"),
+            )
 
             for product in products:
                 instance.products.add(product)
@@ -101,16 +105,18 @@ class RetailSerializer(FactorySerializer):
         links_vendors = {}
 
         link_factory = attrs.get("factory")
-        links_vendors['factory'] = link_factory
+        links_vendors["factory"] = link_factory
 
         link_retails = attrs.get("retails_net")
-        links_vendors['retails_net'] = link_retails
+        links_vendors["retails_net"] = link_retails
 
         link_indi = attrs.get("indi_pred")
-        links_vendors['indi_pred'] = link_indi
+        links_vendors["indi_pred"] = link_indi
 
         if sum(map(lambda x: x is not None, links_vendors.values())) != 1:
-            assert ValidationError({"error": "Связь может быть только с одним поставщиком"})
+            assert ValidationError(
+                {"error": "Связь может быть только с одним поставщиком"}
+            )
 
         return attrs
 
